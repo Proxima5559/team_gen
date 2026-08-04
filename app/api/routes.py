@@ -10,12 +10,9 @@ from app.dependencies.dependencies import get_team_generator
 from app.exporters.zip_exporter import ZipExporter
 from app.generators.team_generator import TeamGenerator
 from app.models.team import Team
+from app.utils.templates import templates
 
 router = APIRouter(prefix="/teams", tags=["Teams"])
-
-BASE_DIR = Path(__file__).resolve().parent.parent
-templates = Jinja2Templates(directory=BASE_DIR / "templates")
-
 
 @router.get("/generate", response_class=HTMLResponse)
 def generate_page(request: Request):

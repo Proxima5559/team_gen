@@ -8,9 +8,9 @@ from pathlib import Path
 
 from app.api.routes import router
 from app.utils.vne_config import HOST, PORT
+from app.utils.templates import templates, STATIC_DIR
 
-BASE_DIR = Path(__file__).resolve().parent
-templates = Jinja2Templates(directory=BASE_DIR / "templates")
+
 
 
 app = FastAPI(
@@ -18,7 +18,7 @@ app = FastAPI(
     version="0.1.0",
 )
 
-app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
+app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 
 @app.get("/", response_class=HTMLResponse)
