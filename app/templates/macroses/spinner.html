@@ -1,0 +1,6 @@
+{% macro spinner(id="spinner", label="Loading...") %}
+<span id="{{ id }}" class="htmx-indicator" role="status" aria-live="polite">
+    <span class="theme-spinner" aria-hidden="true"></span>
+    <span class="theme-text-muted is-size-7">{{ label }}</span>
+</span>
+{% endmacro %}

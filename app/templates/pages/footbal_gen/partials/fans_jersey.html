@@ -1,0 +1,73 @@
+ <div x-data="{ fanOpen: false }" class="mt-4">
+
+        <!-- Toggle Button -->
+        <button
+            class="button is-fullwidth is-light is-medium mb-3 is-flex is-justify-content-space-between is-align-items-center"
+            @click="fanOpen = !fanOpen">
+            <span class="has-text-weight-semibold">
+                Fan Base & Club Kits
+            </span>
+            <span class="icon transition-arrow" :class="{ 'is-open': fanOpen }">
+                <i class="fa-solid fa-chevron-down"></i>
+            </span>
+        </button>
+
+        <!-- Collapsible Content -->
+        <div x-show="fanOpen" x-collapse.duration.350ms x-transition.opacity class="box anim-in-view">
+
+            <div class="columns is-multiline">
+
+                <!-- FAN BASE INFORMATION -->
+                <div class="column is-6">
+                    <h4 class="title is-5 mb-3"><i class="fa-solid fa-users mr-2"></i>Fan Base Profile</h4>
+                    <p class="mb-2"><strong>Supporter Group:</strong> {{ team.fans.supporter_group }}</p>
+                    <p class="mb-2"><strong>Reputation:</strong> {{ team.fans.reputation }}</p>
+                    <p class="mb-2"><strong>Stadium Atmosphere:</strong> <span class="tag is-info is-light">{{
+                            team.fans.atmosphere }}</span></p>
+                </div>
+
+                <!-- KIT COLORS DISPLAY -->
+                <div class="column is-6">
+                    <h4 class="title is-5 mb-3"><i class="fa-solid fa-shirt mr-2"></i>Kit Colors</h4>
+
+                    <div class="content">
+                        <!-- Home Kit -->
+                        <div class="is-flex is-align-items-center mb-2">
+                            <strong style="width: 80px;">Home:</strong>
+                            <span class="tag is-medium mr-2"
+                                style="background-color: {{ team.jerseys.home_primary }}; border: 1px solid #dbdbdb;">&nbsp;</span>
+                            <span class="tag is-medium"
+                                style="background-color: {{ team.jerseys.home_secondary }}; border: 1px solid #dbdbdb;">&nbsp;</span>
+                            <span class="ml-3 is-size-7 has-text-grey">({{ team.jerseys.home_primary }} / {{
+                                team.jerseys.home_secondary }})</span>
+                        </div>
+
+                        <!-- Away Kit -->
+                        <div class="is-flex is-align-items-center mb-2">
+                            <strong style="width: 80px;">Away:</strong>
+                            <span class="tag is-medium mr-2"
+                                style="background-color: {{ team.jerseys.away_primary }}; border: 1px solid #dbdbdb;">&nbsp;</span>
+                            <span class="tag is-medium"
+                                style="background-color: {{ team.jerseys.away_secondary }}; border: 1px solid #dbdbdb;">&nbsp;</span>
+                            <span class="ml-3 is-size-7 has-text-grey">({{ team.jerseys.away_primary }} / {{
+                                team.jerseys.away_secondary }})</span>
+                        </div>
+
+                        <!-- Third Kit -->
+                        <div class="is-flex is-align-items-center mb-2">
+                            <strong style="width: 80px;">Third:</strong>
+                            <span class="tag is-medium mr-2"
+                                style="background-color: {{ team.jerseys.third_primary }}; border: 1px solid #dbdbdb;">&nbsp;</span>
+                            <span class="tag is-medium"
+                                style="background-color: {{ team.jerseys.third_secondary }}; border: 1px solid #dbdbdb;">&nbsp;</span>
+                            <span class="ml-3 is-size-7 has-text-grey">({{ team.jerseys.third_primary }} / {{
+                                team.jerseys.third_secondary }})</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>

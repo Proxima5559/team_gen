@@ -1,0 +1,22 @@
+[project]
+name = "footbal-gen"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi>=0.139.2",
+    "jinja2>=3.1.6",
+    "mimesis>=21.0.0",
+    "openpyxl>=3.1.5",
+    "orjson>=3.11.9",
+    "pydantic>=2.13.4",
+    "python-dotenv>=1.2.2",
+    "pyyaml>=6.0.3",
+    "uvicorn>=0.51.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]

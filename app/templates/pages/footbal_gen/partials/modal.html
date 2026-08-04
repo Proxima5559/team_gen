@@ -1,0 +1,53 @@
+ <div class="modal" :class="{ 'is-active': selectedPlayer !== null }">
+            <div class="modal-background" @click="selectedPlayer = null"></div>
+            
+            <div class="modal-card" x-show="selectedPlayer !== null" x-transition>
+                <header class="modal-card-head">
+                    <p class="modal-card-title" x-text="selectedPlayer ? selectedPlayer.name + ' (' + selectedPlayer.position + ')' : ''"></p>
+                    <button class="delete" aria-label="close" @click="selectedPlayer = null"></button>
+                </header>
+                
+                <section class="modal-card-body">
+                    <div class="columns is-multiline">
+                        <div class="column is-6">
+                            <p><strong>Age:</strong> <span x-text="selectedPlayer?.age"></span></p>
+                            <p><strong>Nationality:</strong> <span x-text="selectedPlayer?.nationality"></span></p>
+                            <p><strong>Market Value:</strong> €<span x-text="selectedPlayer?.market_value?.toLocaleString()"></span></p>
+                        </div>
+                        <div class="column is-6">
+                            <p><strong>Potential:</strong> <span x-text="selectedPlayer?.potential"></span></p>
+                            <p><strong>Preferred Foot:</strong> <span x-text="selectedPlayer?.preferred_foot"></span></p>
+                            <p><strong>Height / Weight:</strong> <span x-text="selectedPlayer?.height_cm"></span>cm / <span x-text="selectedPlayer?.weight_kg"></span>kg</p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <h5 class="title is-5 mb-3">Attributes</h5>
+                    
+                    <!-- Helper template or explicit progress bars for stats -->
+                    <template x-for="stat in ['pace', 'shooting', 'passing', 'dribbling', 'defending', 'physical', 'stamina', 'strength', 'jumping', 'heading', 'aggression']">
+                        <div class="mb-2">
+                            <div class="is-flex is-justify-content-space-between mb-1">
+                                <span class="is-capitalized font-weight-semibold" x-text="stat"></span>
+                                <span x-text="selectedPlayer?.[stat]"></span>
+                            </div>
+                            <progress 
+                                class="progress is-small" 
+                                :class="{
+                                    'is-danger': selectedPlayer?.[stat] < 60,
+                                    'is-warning': selectedPlayer?.[stat] >= 60 && selectedPlayer?.[stat] < 75,
+                                    'is-success': selectedPlayer?.[stat] >= 75
+                                }" 
+                                :value="selectedPlayer?.[stat]" 
+                                max="99">
+                            </progress>
+                        </div>
+                    </template>
+                </section>
+                
+                <footer class="modal-card-foot">
+                    <button class="button" @click="selectedPlayer = null">Close</button>
+                </footer>
+            </div>
+        </div>

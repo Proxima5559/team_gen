@@ -1,0 +1,8 @@
+{% macro theme_button(text, href=None, variant="accent", size="normal", type="button", id=None, extra_class="", hx_attrs="") %}
+    {%- set classes = "button is-" ~ size ~ " is-theme-" ~ variant ~ (" " ~ extra_class if extra_class else "") -%}
+        {%- if href -%}
+            <a{% if id %} id="{{ id }}"{% endif %} href="{{ href }}" class="{{ classes }}" {{ hx_attrs | safe }}>{{ text }}</a>
+        {%- else -%}
+            <button{% if id %} id="{{ id }}"{% endif %} type="{{ type }}" class="{{ classes }}" {{ hx_attrs | safe }}>{{ text }}</button>
+        {%- endif -%}
+{% endmacro %}

@@ -1,0 +1,47 @@
+{% macro text_field(label, model, placeholder="", help="") %}
+<div class="field">
+    <label class="label theme-text-muted is-size-7">{{ label }}</label>
+    <div class="control">
+        <input class="input theme-surface" type="text" x-model="{{ model }}" placeholder="{{ placeholder }}">
+    </div>
+    {%- if help %}
+    <p class="help theme-text-soft">{{ help }}</p>
+    {%- endif %}
+</div>
+{% endmacro %}
+
+{% macro number_field(label, model, min=none, max=none, help="") %}
+<div class="field">
+    <label class="label theme-text-muted is-size-7">{{ label }}</label>
+    <div class="control">
+        <input
+            class="input theme-surface"
+            type="number"
+            x-model.number="{{ model }}"
+            {%- if min is not none %} min="{{ min }}"{% endif %}
+            {%- if max is not none %} max="{{ max }}"{% endif %}
+        >
+    </div>
+    {%- if help %}
+    <p class="help theme-text-soft">{{ help }}</p>
+    {%- endif %}
+</div>
+{% endmacro %}
+
+{% macro select_field(label, model, options_var, help="") %}
+<div class="field">
+    <label class="label theme-text-muted is-size-7">{{ label }}</label>
+    <div class="control">
+        <div class="select is-fullwidth">
+            <select x-model="{{ model }}">
+                <template x-for="opt in {{ options_var }}" :key="opt">
+                    <option :value="opt" x-text="opt"></option>
+                </template>
+            </select>
+        </div>
+    </div>
+    {%- if help %}
+    <p class="help theme-text-soft">{{ help }}</p>
+    {%- endif %}
+</div>
+{% endmacro %}

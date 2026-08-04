@@ -1,0 +1,130 @@
+{% from "macroses/theme_card.html" import theme_card %}
+<div class="box mt-5 has-text-left" x-data='{ team: {{  team.model_dump_json() | safe | tojson  }} }'>
+
+
+    <h1 class="title is-2 has-text-centered">{{ team.name }}</h1>
+
+    <div class="columns is-multiline mt-4">
+        <div class="column is-6">
+            {% call theme_card(title="Club Details", icon="dragon") %}
+            <p><strong>Country:</strong> {{ team.country }}</p>
+            <p><strong>League:</strong> {{ team.league }}</p>
+            <p><strong>Budget:</strong> ${{ "{:,}".format(team.budget) }}</p>
+            {% endcall %}
+        </div>
+        <div class="column is-6">
+            {% call theme_card(title="Tactics", icon="shield-halved") %}
+            <p><strong>Formation:</strong> {{ team.formation }}</p>
+            <p><strong>Playing Style:</strong> {{ team.playing_style }}</p>
+            {% endcall %}
+        </div>
+    </div>
+
+    <hr class="theme-line">
+
+    <div class="columns is-multiline">
+        <div class="column is-6">
+            {% call theme_card(title="Manager", icon="trophy") %}
+            <p><strong>Name:</strong> {{ team.manager.name }}</p>
+            <p><strong>Nationality:</strong> {{ team.manager.nationality }}</p>
+            {% endcall %}
+        </div>
+        <div class="column is-6">
+            {% call theme_card(title="Stadium", icon="award") %}
+            <p><strong>Name:</strong> {{ team.stadium.name }}</p>
+            <p><strong>Capacity:</strong> {{ "{:,}".format(team.stadium.capacity) }}</p>
+            {% endcall %}
+        </div>
+    </div>
+
+    <hr class="theme-line">
+
+    <div x-data="{ squadOpen: true, selectedPlayer: null}">
+
+        <button
+            class="button is-fullwidth is-light is-medium mb-3 is-flex is-justify-content-space-between is-align-items-center"
+            @click="squadOpen = !squadOpen">
+
+            <span class="has-text-weight-semibold">
+                First Team Squad ({{ team.players|length }})
+            </span>
+
+            <span class="icon transition-arrow" :class="{ 'is-open': squadOpen }">
+                <i class="fa-solid fa-chevron-down"></i>
+            </span>
+        </button>
+
+        <div x-show="squadOpen" x-collapse.duration.350ms x-transition.opacity class="table-container anim-in-view">
+
+            <table class="table is-fullwidth is-striped is-hoverable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Player Name</th>
+                        <th>Position</th>
+                        <th>OVR</th>
+                        <th>Nationality</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for player in team.players %}
+                    <tr>
+                        <td>{{ player.kit_number }}</td>
+                        <td><strong>{{ player.name }}</strong></td>
+                        <td>{{ player.position }}</td>
+                        <td class="has-text-weight-bold 
+                            {% if player.overall < 70 -%} has-text-danger
+                            {%- elif player.overall < 75 -%} has-text-warning-light
+                            {%- elif player.overall < 85 -%} has-text-success
+                            {%- elif player.overall < 90 -%} has-text-success-light
+                            {%- else -%} has-text-warning
+                            {%- endif %}" style="cursor: pointer;"
+                            @click="selectedPlayer = {{ player.model_dump_json() }}">
+                            {{ player.overall }}
+                        </td>
+                        <td>{{ player.nationality }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
+
+        {% include 'pages/footbal_gen/partials/modal.html' %}
+    </div>
+
+    <hr class="theme-line">
+
+    {% include 'pages/footbal_gen/partials/fans_jersey.html' %}
+
+    <hr class="theme-line">
+    
+    {% include 'pages/footbal_gen/partials/history.html' %}
+    
+    <hr class="theme-line">
+
+    <div class="has-text-centered mt-5">
+        <button class="button is-link is-large" @click="
+                    fetch('/teams/export', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify(team)
+                    })
+                    .then(res => {
+                        if (!res.ok) throw new Error('Validation error (422). Check backend terminal.');
+                        return res.blob()
+                    })
+                    .then(blob => {
+                        let a = document.createElement('a');
+                        a.href = URL.createObjectURL(blob);
+                        let filename = (team && team.name) ? team.name.replace(/\s+/g, '_') : 'team_package';
+                        a.download = filename + '.zip';
+                        a.click();
+                    })
+                ">
+            Export to ZIP (JSON + Excel)
+        </button>
+    </div>
+</div>

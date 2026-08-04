@@ -1,0 +1,49 @@
+<nav
+    class="navbar theme-header is-fixed-top"
+    role="navigation"
+    aria-label="main navigation"
+    x-data="{ 
+        open: false, 
+        theme: localStorage.getItem('theme') || 'dark',
+        toggleTheme() {
+            this.theme = this.theme === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('theme', this.theme);
+            document.documentElement.setAttribute('data-theme', this.theme);
+        }
+    }"
+    x-init="document.documentElement.setAttribute('data-theme', theme)"
+>
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+                <span class="theme-text-neon" style="font-weight: 700; font-size: 1.25rem;">
+                    &#9917; Football Team Generator
+                </span>
+            </a>
+
+            <a
+                role="button"
+                class="navbar-burger"
+                :class="{ 'is-active': open }"
+                @click="open = !open"
+                aria-label="menu"
+                :aria-expanded="open.toString()"
+            >
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div class="navbar-menu" :class="{ 'is-active': open }">
+            <div class="navbar-end">
+                <a class="navbar-item theme-text-muted" href="/">Home</a>
+                <a class="navbar-item theme-text-muted" href="/teams/generate" hx-boost="true">Generate</a>
+
+                <a class="navbar-item theme-toggle" @click="toggleTheme()">
+                    <span class="theme-tag" x-text="theme === 'dark' ? '🌙 Dark' : '☀️ Light'"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>

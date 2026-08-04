@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% from "macroses/button.html" import theme_button %}
+{% from "macroses/spinner.html" import spinner %}
+
+{% block content %}
+<div class="section">
+  <div class="container has-text-centered">
+    
+    <h1 class="title is-2 mb-6">Generate Your Club</h1>
+    
+    <div class="is-flex is-justify-content-center mb-4">
+      {{ theme_button(
+          text="Generate Random Club",
+          variant="primary",
+          size="large",
+          extra_class="is-primary",
+          hx_attrs='hx-post="/teams/generate" hx-target="#team-result" hx-indicator="#gen-spinner"'
+      ) }}
+    </div>
+
+    <div id="gen-spinner" class="htmx-indicator mb-4">
+      {{ spinner(label="Building your club...") }}
+    </div>
+
+    <div id="team-result" class="mt-6 text-left"></div>
+  </div>
+</div>
+{% endblock %}

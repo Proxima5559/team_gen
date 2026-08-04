@@ -1,0 +1,40 @@
+<div x-data="{ historyOpen: false }" class="mt-4">
+
+    <!-- Toggle Button -->
+    <button
+        class="button is-fullwidth is-light is-medium mb-3 is-flex is-justify-content-space-between is-align-items-center"
+        @click="historyOpen = !historyOpen">
+        <span class="has-text-weight-semibold">
+            Club History & Milestones (Est. {{ team.history.founded }})
+        </span>
+        <span
+            class="icon transition-arrow"
+            :class="{ 'is-open': historyOpen }">
+            <i class="fa-solid fa-chevron-down"></i>
+        </span>
+    </button>
+
+    <!-- Collapsible Content -->
+    <div
+        x-show="historyOpen"
+        x-collapse.duration.350ms
+        x-transition.opacity
+        class="box anim-in-view">
+        
+        <h4 class="title is-5 mb-3"><i class="fa-solid fa-timeline mr-2"></i>Key Milestones</h4>
+        
+        <div class="timeline-container">
+            <ul style="list-style-type: none; padding-left: 0;">
+                {% for milestone in team.history.milestones %}
+                <li class="is-flex align-items-center mb-3">
+                    <span class="icon has-text-primary mr-2">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </span>
+                    <span>{{ milestone }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+</div>

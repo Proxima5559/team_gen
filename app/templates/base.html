@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" class="has-navbar-fixed-top" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title | default("Sports Sim") }}</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', path='css/bulma.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/animus.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script src="{{ url_for('static', path='js/htmx.min.js') }}"></script>
+    <script src="{{ url_for('static', path='js/alpine-collapse.min.js') }}"></script>
+    <script defer src="{{ url_for('static', path='js/alpine.min.js') }}"></script>
+</head>
+<body>
+    {% include "components/header.html" %}
+    {% block content %}{% endblock %}
+    {% include "components/footer.html" %}
+</body>
+</html>
