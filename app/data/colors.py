@@ -1,6 +1,25 @@
-COLORS = [
-    "Black", "White", "Red", "Blue", "Green", 
-    "Gold", "Silver", "Yellow", "Purple", "Navy",
-    "Orange", "Pink", "Brown", "Gray", "Teal", 
-    "Maroon", "Cyan", "Magenta", "Olive", "Lavender"
+COLOR_PALETTES = [
+    { "primary": "#E31B23", "secondary": "#FFFFFF", "name": "Red & White" },
+    { "primary": "#002B49", "secondary": "#6CABDD", "name": "Navy & Sky Blue" },
+    { "primary": "#1A202C", "secondary": "#ECC94B", "name": "Black & Gold" },
+    { "primary": "#00539F", "secondary": "#FF6900", "name": "Blue & Orange" },
+    { "primary": "#52006A", "secondary": "#FFC72C", "name": "Purple & Gold" },
+    { "primary": "#008000", "secondary": "#FFFFFF", "name": "Green & White" },
+    { "primary": "#7F1D1D", "secondary": "#FBBF24", "name": "Maroon & Amber" },
+    { "primary": "#1E3A8A", "secondary": "#FFFFFF", "name": "Royal Blue & White" },
+    
+    { "primary": "#000000", "secondary": "#FFFFFF", "name": "Black & White" },
+    { "primary": "#004D98", "secondary": "#A50044", "name": "Blue & Deep Red" },
+    { "primary": "#2774AE", "secondary": "#F2A900", "name": "Blue & Gold" },
+    { "primary": "#000000", "secondary": "#CC3333", "name": "Black & Red" },
+    { "primary": "#7BC3D1", "secondary": "#FFFFFF", "name": "Sky Blue & White" },
+    { "primary": "#4A0E17", "secondary": "#862633", "name": "Claret & Blue" },
+    { "primary": "#000000", "secondary": "#FDE100", "name": "Black & Yellow" },
+    { "primary": "#330066", "secondary": "#FFFFFF", "name": "Purple & White" },
+    { "primary": "#0051BA", "secondary": "#FCD116", "name": "Blue & Yellow" },
+    { "primary": "#012169", "secondary": "#E40046", "name": "Navy & Red" },
+    { "primary": "#FFD100", "secondary": "#008347", "name": "Yellow & Green" },
+    { "primary": "#131E3A", "secondary": "#F47321", "name": "Dark Navy & Orange" },
+    { "primary": "#000000", "secondary": "#00FF87", "name": "Black & Neon Green" },
+    { "primary": "#800020", "secondary": "#FFFFFF", "name": "Burgundy & White" }
 ]

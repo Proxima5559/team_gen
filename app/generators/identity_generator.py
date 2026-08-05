@@ -3,7 +3,7 @@ from mimesis.locales import Locale
 
 from app.data.club_names import CLUB_NAME_BLUEPRINTS
 from app.models.team import ClubIdentity
-from app.data.colors import COLORS
+from app.data.colors import COLOR_PALETTES
 from app.data.fans import NICKNAMES, MOTTOS, MASCOTS
 from app.services.random_service import RandomService
 from app.services.text_sanitizer import TextSanitizer
@@ -17,9 +17,9 @@ class IdentityGenerator:
         current_year = 2026
         founded = self.random.integer(1870, current_year - 1)
 
-        primary_color = self.random.choice(COLORS)
-        secondary_colors = [c for c in COLORS if c != primary_color]
-        secondary_color = self.random.choice(secondary_colors)
+        home_palette = self.random.choice(COLOR_PALETTES)
+        primary_color = home_palette["primary"]
+        secondary_color = home_palette["secondary"]
 
         raw_club_name = self._generate_club_name(country)
 
