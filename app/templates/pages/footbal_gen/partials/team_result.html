@@ -2,9 +2,9 @@
 <div class="box mt-5 has-text-left" x-data='{ team: {{  team.model_dump_json() | safe | tojson  }} }'>
 
 
-    <h1 class="title is-2 has-text-centered">{{ team.name }}</h1>
+    <h1 class="title is-2 has-text-centered anim-up">{{ team.name }}</h1>
 
-    <div class="columns is-multiline mt-4">
+    <div class="columns is-multiline mt-4 anim-up">
         <div class="column is-6">
             {% call theme_card(title="Club Details", icon="dragon") %}
             <p><strong>Country:</strong> {{ team.country }}</p>
@@ -22,7 +22,7 @@
 
     <hr class="theme-line">
 
-    <div class="columns is-multiline">
+    <div class="columns is-multiline anim-up">
         <div class="column is-6">
             {% call theme_card(title="Manager", icon="trophy") %}
             <p><strong>Name:</strong> {{ team.manager.name }}</p>
