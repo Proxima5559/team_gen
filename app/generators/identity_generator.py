@@ -6,6 +6,7 @@ from app.models.team import ClubIdentity
 from app.data.colors import COLORS
 from app.data.fans import NICKNAMES, MOTTOS, MASCOTS
 from app.services.random_service import RandomService
+from app.services.text_sanitizer import TextSanitizer
 
 
 class IdentityGenerator:
@@ -20,7 +21,9 @@ class IdentityGenerator:
         secondary_colors = [c for c in COLORS if c != primary_color]
         secondary_color = self.random.choice(secondary_colors)
 
-        club_name = self._generate_club_name(country)
+        raw_club_name = self._generate_club_name(country)
+
+        club_name = TextSanitizer.to_latin(raw_club_name)
         nickname = self.random.choice(NICKNAMES)
 
         return ClubIdentity(

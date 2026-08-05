@@ -11,6 +11,7 @@ from app.data.positions import (
 )
 from app.services.random_service import RandomService
 from app.services.nationality_service import NationalityService
+from app.services.text_sanitizer import TextSanitizer
 from app.services.valuation_service import ValuationService
 from app.services.attribute_service import AttributeService
 
@@ -35,6 +36,9 @@ class PlayerGenerator:
         pos_code = position if position in POSITIONS else "CM"
         person = self._get_person_generator(country)
 
+        raw_name = person.full_name(gender=Gender.MALE)
+        latin_name = TextSanitizer.to_latin(raw_name)
+    
         age = self.random.integer(17, 40)
         low, high = sorted(overall_range)
         overall = self.random.integer(low, high)
@@ -52,7 +56,7 @@ class PlayerGenerator:
         weight_kg = int(bmi * ((height_cm / 100) ** 2))
 
         return Player(
-            name=person.full_name(gender=Gender.MALE),
+            name=latin_name,
             kit_number=kit_number,
             age=age,
             nationality=self.nationality_service.from_country(country),
