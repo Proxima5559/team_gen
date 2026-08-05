@@ -73,16 +73,8 @@
                         <td>{{ player.kit_number }}</td>
                         <td><strong>{{ player.name }}</strong></td>
                         <td>{{ player.position }}</td>
-                        <td class="has-text-weight-bold 
-                            {% if player.overall < 70 -%} has-text-danger
-                            {%- elif player.overall < 75 -%} has-text-warning-light
-                            {%- elif player.overall < 85 -%} has-text-success
-                            {%- elif player.overall < 90 -%} has-text-success-light
-                            {%- else -%} has-text-warning
-                            {%- endif %}" style="cursor: pointer;"
-                            @click="selectedPlayer = {{ player.model_dump_json() }}">
-                            {{ player.overall }}
-                        </td>
+                        <td class="has-text-weight-bold {% if player.overall < 70 -%} has-text-danger {%- elif player.overall < 75 -%} has-text-warning {%- elif player.overall < 85 -%} has-text-info {%- elif player.overall < 90 -%} has-text-success {%- else -%} has-text-warning-light {%- endif %}" style="cursor: pointer;" @click="selectedPlayer = {{ player.model_dump_json() }}"> {{ player.overall }} </td>
+
                         <td>{{ player.nationality }}</td>
                     </tr>
                     {% endfor %}
