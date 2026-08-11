@@ -12,6 +12,7 @@ from app.services.nationality_service import NationalityService
 from app.services.random_service import RandomService
 from app.services.valuation_service import ValuationService
 from app.services.attribute_service import AttributeService
+from app.services.nationality_dist_service import NationalityDistributionService
 
 def get_team_generator() -> TeamGenerator:
     random_service = RandomService()
@@ -38,4 +39,5 @@ def get_team_generator() -> TeamGenerator:
         identity_generator=IdentityGenerator(random_service=random_service),
         fan_generator=FanGenerator(random_service=random_service),
         jersey_generator=JerseyGenerator(random_service=random_service),
+        nationality_distribution_service=NationalityDistributionService(random_service=random_service),
     )

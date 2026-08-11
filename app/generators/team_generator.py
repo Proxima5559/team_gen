@@ -1,11 +1,12 @@
 from app.data.positions import POSITION_KIT_NUMBERS, SQUAD_LIMITS
 from app.data.formation import FORMATIONS
-from app.data.countries import COUNTRY_TO_LOCALE, COUNTRY_TO_NATIONALITY, COUNTRY_TO_LEAGUES, DEFAULT_TIER, LEAGUE_TIERS
+from app.data.countries import COUNTRY_TO_CHANCE, COUNTRY_TO_LOCALE, COUNTRY_TO_NATIONALITY, COUNTRY_TO_LEAGUES, DEFAULT_TIER, LEAGUE_TIERS
 from app.generators.manager_generator import ManagerGenerator
 from app.generators.player_generator import PlayerGenerator
 from app.generators.stadium_generator import StadiumGenerator
 from app.models.team import Team
 from app.services.formation_service import FormationService
+from app.services.nationality_dist_service import NationalityDistributionService
 from app.services.random_service import RandomService
 from app.generators.history_generator import HistoryGenerator
 from app.generators.identity_generator import IdentityGenerator
@@ -25,6 +26,7 @@ class TeamGenerator:
         identity_generator: IdentityGenerator,
         fan_generator: FanGenerator,
         jersey_generator: JerseyGenerator,
+        nationality_distribution_service: NationalityDistributionService,
     ):
         self.random = random_service
         self.formation_service = formation_service
@@ -35,11 +37,13 @@ class TeamGenerator:
         self.identity_generator = identity_generator
         self.fan_generator = fan_generator
         self.jersey_generator = jersey_generator
+        self.nationality_distribution_service = nationality_distribution_service
     
 
     def _generate_squad(
         self,
         country: str,
+        league: str,
         formation: str,
         player_countries: dict[str, int] | None = None,
         overall_range: tuple[int, int] = (60, 94),
@@ -100,8 +104,13 @@ class TeamGenerator:
         nationalities = nationalities[:squad_size]
 
         remaining = squad_size - len(nationalities)
+
         nationalities.extend(
-            self.random.choice(list(COUNTRY_TO_LOCALE.keys())) for _ in range(remaining)
+            self.nationality_distribution_service.generate(
+                country=country,
+                league=league,
+            )
+            for _ in range(remaining)
         )
         self.random.shuffle(nationalities)
 
@@ -165,6 +174,7 @@ class TeamGenerator:
 
         players = self._generate_squad(
             country=country,
+            league=league,
             formation=formation,
             overall_range=overall_range
         )
