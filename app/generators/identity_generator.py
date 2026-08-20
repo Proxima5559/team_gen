@@ -1,5 +1,6 @@
 from mimesis import Address
 from mimesis.locales import Locale
+from datetime import datetime
 
 from app.data.club_names import CLUB_NAME_BLUEPRINTS
 from app.models.team import ClubIdentity
@@ -14,7 +15,7 @@ class IdentityGenerator:
         self.random = random_service
 
     def generate(self, country: str) -> ClubIdentity:
-        current_year = 2026
+        current_year = datetime.now().year
         founded = self.random.integer(1870, current_year - 1)
 
         home_palette = self.random.choice(COLOR_PALETTES)
